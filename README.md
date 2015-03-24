@@ -8,10 +8,14 @@ then used to slice the rendered image into individual assets.
 ## Dependencies
 
  - Ruby ([info](http://www.ruby-lang.org/))
+```
+CentOS: $ yum install ruby-devel
+```
  - ImageMagick ([info](http://www.imagemagick.org/) | [binaries](http://www.imagemagick.org/script/binary-releases.php))
 ```
-MacOS: sudo port install ImageMagick
-CentOS: yum install ImageMagick
+MacOS:  $ sudo port install ImageMagick
+CentOS: $ yum install ImageMagick
+Linux:  $ apt-get install imagemagick
 ```
  - PSD.rb ([github](https://github.com/layervault/psd.rb))
 ```
