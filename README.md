@@ -28,7 +28,7 @@ usage: ./psd-render-slices <psd file> [<output directory>]
 ### Output format 
 
 The slices are rendered in PNG format in the specified output directory (by 
-default `out/`). Thye will have be saved as `[slice_name].png` where `[slice_name]`
+default `out/`). They will have be saved as `[slice_name].png` where slice name
 can be individually set in Photoshop using Slice Selection Tool.
 
 ## More information
