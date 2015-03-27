@@ -58,6 +58,7 @@ begin
 
     rendered = Hash.new
     duplicates = Hash.new
+    warnings = 0
 
     # Render each slice
     slices.each do |slice|
@@ -66,13 +67,17 @@ begin
         y = slice[:y]
         width = slice[:width]
         height = slice[:height]
-        if name.length == 0
+        if name.length == 0 and warnings < 3
             puts "warning: missing name for slice at x = #{x}, y = #{y}"
+            warnings += 1
+            if warnings == 3
+                puts "(skipping all other warnings)"
+            end
             next
         elsif width <= 0 || height <= 0
             puts "error: slice at x = #{x}, y = #{y} is empty"
             next
-        elsif rendered[name] && !duplicates[name]
+        elsif name.length > 0 && rendered[name] && !duplicates[name]
             count = slices.count{|iter|iter[:name]==name}
             puts "error: duplicate slice name '#{name}' #{count} times"
             duplicates[name] = true
