@@ -62,29 +62,31 @@ begin
 
     # Render each slice
     slices.each do |slice|
-        name = slice[:name]
+        names = slice[:name].split(",")
         x = slice[:x]
         y = slice[:y]
         width = slice[:width]
         height = slice[:height]
-        if name.length == 0 and warnings < 3
-            puts "warning: missing name for slice at x = #{x}, y = #{y}"
-            warnings += 1
-            if warnings == 3
-                puts "(skipping all other warnings)"
+        names.each do |name|
+            if name.length == 0 and warnings < 3
+                puts "warning: missing name for slice at x = #{x}, y = #{y}"
+                warnings += 1
+                if warnings == 3
+                    puts "(skipping all other warnings)"
+                end
+                next
+            elsif width <= 0 || height <= 0
+                puts "error: slice at x = #{x}, y = #{y} is empty"
+                next
+            elsif name.length > 0 && rendered[name] && !duplicates[name]
+                count = slices.count{|iter|iter[:name]==name}
+                puts "error: duplicate slice name '#{name}' #{count} times"
+                duplicates[name] = true
+                next
             end
-            next
-        elsif width <= 0 || height <= 0
-            puts "error: slice at x = #{x}, y = #{y} is empty"
-            next
-        elsif name.length > 0 && rendered[name] && !duplicates[name]
-            count = slices.count{|iter|iter[:name]==name}
-            puts "error: duplicate slice name '#{name}' #{count} times"
-            duplicates[name] = true
-            next
+            system("convert #{renderFile.path} -crop #{width}x#{height}+#{x}+#{y} #{outputDir}/#{name}.png")
+            rendered[name] = true
         end
-        system("convert #{renderFile.path} -crop #{width}x#{height}+#{x}+#{y} #{outputDir}/#{name}.png")
-        rendered[name] = true
     end
 ensure
     renderFile.unlink
