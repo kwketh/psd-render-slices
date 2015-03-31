@@ -53,8 +53,7 @@ Dir.mkdir outputDir unless File.exists?(outputDir)
 # Render complete psd to temporary file
 renderFile = Tempfile.new('assets.png')
 begin
-    png = psd.image.to_png
-    psd.image.save_as_png(renderFile.path)
+    system("convert -page #{psd.width}x#{psd.height} -background none \"#{psdFile}\" -delete 0 -flatten #{renderFile.path}")
 
     rendered = Hash.new
     duplicates = Hash.new
