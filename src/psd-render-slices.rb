@@ -67,7 +67,9 @@ begin
         width = slice[:width]
         height = slice[:height]
         names.each do |name|
-            if name.length == 0 and warnings < 3
+            if name == "skip"
+                next
+            elsif name.length == 0 and warnings < 3
                 puts "warning: missing name for slice at x = #{x}, y = #{y}"
                 warnings += 1
                 if warnings == 3
