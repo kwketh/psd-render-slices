@@ -90,7 +90,7 @@ begin
                 duplicates[name] = true
                 next
             end
-            system("convert #{renderFile.path} -crop #{width}x#{height}+#{x}+#{y} #{outputDir}/#{name}.png")
+            system("convert #{renderFile.path} -strip -crop #{width}x#{height}+#{x}+#{y} #{outputDir}/#{name}.png")
             rendered[name] = true
         end
     end
