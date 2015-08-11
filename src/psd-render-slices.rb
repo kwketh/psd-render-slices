@@ -22,7 +22,12 @@ end
 
 # Load psd
 psd = PSD.new(psdFile)
-psd.parse!
+begin
+    psd.parse!
+rescue
+    puts "error: failed to parse .psd file (corrupted?)"
+    exit
+end
 slices = Array.new
 
 # Load slices info
