@@ -58,7 +58,8 @@ Dir.mkdir outputDir unless File.exists?(outputDir)
 # Render complete psd to temporary file
 renderFile = Tempfile.new(["assets", ".png"])
 begin
-    system("convert -page #{psd.width}x#{psd.height} -background none \"#{psdFile}\" -delete 0 -flatten \"#{renderFile.path}\"")
+    # PSD file must be saved with compatibility mode
+    system("convert -page #{psd.width}x#{psd.height} -background none \"#{psdFile}\[0]" \"#{renderFile.path}\"")
 
     rendered = Hash.new
     duplicates = Hash.new
